@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Web 版日历应用 - Flask 服务器
+Web Calendar Application - Flask Server
 """
 
 from flask import Flask, render_template, request, jsonify
@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    """主页 - 显示当前月份的日历"""
+    """Home page - Display calendar for current month"""
     today = datetime.date.today()
     return render_template('index.html', 
                           year=today.year, 
@@ -24,14 +24,14 @@ def index():
 
 @app.route('/api/calendar/<int:year>/<int:month>')
 def get_calendar(year, month):
-    """获取指定月份的日历数据"""
+    """Get calendar data for specified month"""
     if month < 1 or month > 12 or year < 1900 or year > 2100:
-        return jsonify({'error': '无效的年份或月份'}), 400
+        return jsonify({'error': 'Invalid year or month'}), 400
     
-    # 获取该月的日历
+    # Get calendar for the month
     calendar_data = cal.monthcalendar(year, month)
     
-    # 构建日期数据
+    # Build date data
     days_data = []
     days_in_month = cal.monthrange(year, month)[1]
     
@@ -43,10 +43,10 @@ def get_calendar(year, month):
             else:
                 lunar_y, lunar_m, lunar_d = solar_to_lunar(year, month, day)
                 lunar_str = format_lunar(lunar_y, lunar_m, lunar_d)
-                greg_holiday = get_gregorian_holiday(month, day)
+                greg_holiday = get_gregorian_holiday(month, day, year)
                 lunar_holiday = get_lunar_holiday(lunar_m, lunar_d)
                 
-                # 判断是否为今天
+                # Determine if it's today
                 today = datetime.date.today()
                 is_today = (year == today.year and 
                            month == today.month and 
@@ -72,27 +72,27 @@ def get_calendar(year, month):
 
 @app.route('/api/date/<int:year>/<int:month>/<int:day>')
 def get_date_info(year, month, day):
-    """获取指定日期的详细信息"""
+    """Get detailed information for specified date"""
     try:
         date_obj = datetime.date(year, month, day)
     except ValueError:
-        return jsonify({'error': '无效的日期'}), 400
+        return jsonify({'error': 'Invalid date'}), 400
     
     lunar_y, lunar_m, lunar_d = solar_to_lunar(year, month, day)
     
-    # 获取星期
-    weekday_names = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+    # Get weekday
+    weekday_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     weekday = weekday_names[date_obj.weekday()]
     
     luna_str = format_lunar(lunar_y, lunar_m, lunar_d)
-    greg_holiday = get_gregorian_holiday(month, day)
+    greg_holiday = get_gregorian_holiday(month, day, year)
     lunar_holiday = get_lunar_holiday(lunar_m, lunar_d)
     
     return jsonify({
-        'gregorian': f'{year}年{month}月{day}日',
+        'gregorian': f'{year}-{month:02d}-{day:02d}',
         'weekday': weekday,
         'lunar': luna_str,
-        'lunar_full': f'{lunar_y}年{luna_str}',
+        'lunar_full': f'{lunar_y} {luna_str}',
         'greg_holiday': greg_holiday,
         'lunar_holiday': lunar_holiday
     })
@@ -100,9 +100,9 @@ def get_date_info(year, month, day):
 
 if __name__ == '__main__':
     print("=" * 50)
-    print("公历农历日历 Web 版本")
+    print("Gregorian-Lunar Calendar Web Version")
     print("=" * 50)
-    print("\n访问地址: http://localhost:5000")
-    print("\n按 Ctrl+C 停止服务器")
+    print("\nAccess at: http://localhost:5000")
+    print("\nPress Ctrl+C to stop the server")
     print("=" * 50 + "\n")
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,71 +1,71 @@
-# 1stTest - 公历农历日历程序
+# 1stTest - Gregorian and Lunar Calendar Program
 
-## 项目描述
+## Project Description
 
-一个完整的日历应用程序，同时显示公历和中国农历，并标记重要节假日和传统节日。
+A complete calendar application that displays both Gregorian calendar and Chinese Lunar calendar, and marks important holidays and traditional festivals.
 
-提供两个版本：
-- **Web 版本** - 基于 Flask 的浏览器应用（推荐）
-- **GUI 版本** - 基于 tkinter 的桌面应用
+Two versions are provided:
+- **Web Version** - Flask-based browser application (recommended)
+- **GUI Version** - tkinter-based desktop application
 
-## 功能特性
+## Features
 
-- ✅ 同时显示公历和农历
-- ✅ 公历日期、星期显示
-- ✅ 农历日期展示
-- ✅ 节假日标记（春节、清明节、劳动节、端午节、中秋节、国庆节等）
-- ✅ 农历传统节日标记（元宵节、中元节、重阳节、腊八节、除夕等）
-- ✅ 月份导航（上月、下月、今天）
-- ✅ 日期详细信息显示
-- ✅ 美观的用户界面（Web 版）
+- ✅ Display both Gregorian and Lunar calendars
+- ✅ Gregorian date and weekday display
+- ✅ Lunar date display
+- ✅ Holiday marking (Spring Festival, Qingming Festival, Labor Day, Dragon Boat Festival, Mid-Autumn Festival, National Day, etc.)
+- ✅ Lunar traditional festival marking (Lantern Festival, Ghost Festival, Double Ninth Festival, Laba Festival, New Year's Eve, etc.)
+- ✅ Month navigation (previous month, next month, today)
+- ✅ Detailed date information display
+- ✅ Beautiful user interface (Web version)
 
-## 项目结构
+## Project Structure
 
 ```
 calendar_app/
-├── main.py                  # GUI 应用入口
-├── app.py                   # Web 应用入口
-├── gui.py                   # GUI 界面模块
-├── lunar_calendar.py        # 农历计算模块
-├── holidays.py              # 节假日数据定义
+├── main.py                  # GUI application entry point
+├── app.py                   # Web application entry point
+├── gui.py                   # GUI interface module
+├── lunar_calendar.py        # Lunar calendar calculation module
+├── holidays.py              # Holiday data definitions
 ├── templates/
-│   └── index.html          # Web 应用 HTML 模板
-├── requirements.txt         # GUI 依赖
-└── web_requirements.txt     # Web 依赖
+│   └── index.html          # Web application HTML template
+├── requirements.txt         # GUI dependencies
+└── web_requirements.txt     # Web dependencies
 ```
 
-## 快速开始
+## Quick Start
 
-### Web 版本（推荐）
+### Web Version (Recommended)
 
-#### 安装依赖
+#### Install Dependencies
 
 ```bash
-# 创建虚拟环境
+# Create virtual environment
 python3 -m venv venv
 source venv/bin/activate  # Linux/Mac
-# 或 venv\Scripts\activate  # Windows
+# or venv\Scripts\activate  # Windows
 
-# 安装 Flask
+# Install Flask
 pip install Flask
 ```
 
-#### 运行应用
+#### Run Application
 
 ```bash
-# 激活虚拟环境后
+# After activating virtual environment
 cd calendar_app
 python app.py
 
-# 或使用虚拟环境的 Python
+# Or use Python from virtual environment
 /path/to/venv/bin/python app.py
 ```
 
-然后在浏览器中访问：**http://localhost:5000**
+Then access in browser: **http://localhost:5000**
 
-### GUI 版本
+### GUI Version
 
-#### 安装依赖
+#### Install Dependencies
 
 ```bash
 # Linux/Ubuntu
@@ -75,146 +75,146 @@ sudo apt install python3-tk
 brew install python-tk
 
 # Windows
-# tkinter 已包含在 Python 安装中
+# tkinter is included in Python installation
 ```
 
-#### 运行应用
+#### Run Application
 
 ```bash
 cd calendar_app
 python main.py
 ```
 
-## 文件说明
+## File Description
 
 ### lunar_calendar.py
-农历计算模块，提供以下功能：
-- `solar_to_lunar()` - 公历转农历
-- `lunar_to_solar()` - 农历转公历
-- `format_lunar()` - 格式化农历日期显示
-- 支持 1900-2100 年的转换
+Lunar calendar calculation module, providing the following functions:
+- `solar_to_lunar()` - Convert Gregorian to Lunar
+- `lunar_to_solar()` - Convert Lunar to Gregorian
+- `format_lunar()` - Format Lunar date display
+- Support conversion for years 1900-2100
 
 ### holidays.py
-节假日和传统节日数据定义：
-- 公历节假日（元旦、春节、清明节等）
-- 农历传统节日（元宵节、中元节、重阳节等）
-- 节假日查询接口
+Holiday and traditional festival data definitions:
+- Gregorian holidays (New Year's Day, Spring Festival, Qingming Festival, etc.)
+- Lunar traditional festivals (Lantern Festival, Ghost Festival, Double Ninth Festival, etc.)
+- Holiday query interface
 
-### app.py（Web 版本）
-Flask Web 应用程序：
-- REST API 端点提供日历数据
-- 与前端模板交互
-- 支持 JSON 数据交换
+### app.py (Web Version)
+Flask Web application:
+- REST API endpoints provide calendar data
+- Interact with frontend templates
+- Support JSON data exchange
 
-### main.py（GUI 版本）
-GUI 应用入口，启动 tkinter 日历界面。
+### main.py (GUI Version)
+GUI application entry point, launches tkinter calendar interface.
 
 ### templates/index.html
-Web 应用的前端页面：
-- 响应式设计
-- 动态日历显示
-- 实时交互功能
+Frontend page of web application:
+- Responsive design
+- Dynamic calendar display
+- Real-time interaction features
 
-## 使用说明
+## Usage Guide
 
-### Web 版本功能
+### Web Version Features
 
-1. **浏览日历**
-   - 左侧显示完整的月份日历网格
-   - 每个日期同时显示公历和农历
-   - 节假日用红色背景高亮
-   - 今天用黄色背景高亮
+1. **Browse Calendar**
+   - Left side displays complete monthly calendar grid
+   - Each date shows both Gregorian and Lunar calendars
+   - Holidays highlighted with red background
+   - Today highlighted with yellow background
 
-2. **导航月份**
-   - 点击"◀ 上月"和"下月 ▶"导航
-   - 或输入年份和月份，点击"跳转"
-   - 点击"今天"快速回到当前日期
+2. **Navigate Months**
+   - Click "◀ Previous Month" and "Next Month ▶" to navigate
+   - Or input year and month, click "Jump"
+   - Click "Today" to quickly return to current date
 
-3. **查看日期详情**
-   - 点击任意日期查看详细信息
-   - 右侧面板显示：
-     - 公历日期和星期
-     - 农历日期
-     - 节假日/传统节日标记
+3. **View Date Details**
+   - Click any date to view detailed information
+   - Right panel shows:
+     - Gregorian date and weekday
+     - Lunar date
+     - Holiday/traditional festival marks
 
-### GUI 版本功能
+### GUI Version Features
 
-1. **导航月份**
-   - 点击"◀ 上月"和"下月 ▶"按钮
-   - 使用年份和月份输入框直接选择
-   - 点击"今天"快速回到当前月份
+1. **Navigate Months**
+   - Click "◀ Previous" and "Next ▶" buttons
+   - Use year and month input boxes to select directly
+   - Click "Today" to quickly return to current month
 
-2. **查看日期信息**
-   - 点击日历网格中的任意日期
-   - 右侧面板显示详细信息
+2. **View Date Information**
+   - Click any date in the calendar grid
+   - Right panel displays detailed information
 
-## 节假日支持
+## Holiday Support
 
-**公历节假日：**
-- 元旦（1月1日）
-- 春节假期（2月10-16日）
-- 清明节（4月4-6日）
-- 劳动节（5月1-5日）
-- 端午节（6月10日）
-- 中秋节（9月15-17日）
-- 国庆节（10月1-7日）
+**Gregorian Holidays:**
+- New Year's Day (January 1)
+- Spring Festival (February 10-16)
+- Qingming Festival (April 4-6)
+- Labor Day (May 1-5)
+- Dragon Boat Festival (June 10)
+- Mid-Autumn Festival (September 15-17)
+- National Day (October 1-7)
 
-**农历传统节日：**
-- 春节（正月初一）
-- 元宵节（正月十五）
-- 端午节（五月初五）
-- 中元节（七月十五）
-- 中秋节（八月十五）
-- 重阳节（九月初九）
-- 腊八节（十二月初八）
-- 除夕（十二月三十）
+**Lunar Traditional Festivals:**
+- Spring Festival (1st day of 1st lunar month)
+- Lantern Festival (15th day of 1st lunar month)
+- Dragon Boat Festival (5th day of 5th lunar month)
+- Ghost Festival (15th day of 7th lunar month)
+- Mid-Autumn Festival (15th day of 8th lunar month)
+- Double Ninth Festival (9th day of 9th lunar month)
+- Laba Festival (8th day of 12th lunar month)
+- New Year's Eve (30th day of 12th lunar month)
 
-## 技术细节
+## Technical Details
 
-### 农历计算算法
-使用标准的农历计算表（1900-2100年），基于农历月份数据进行公历和农历的相互转换。
+### Lunar Calendar Calculation Algorithm
+Uses standard lunar calendar calculation tables (1900-2100), based on lunar month data for inter-conversion between Gregorian and Lunar calendars.
 
-### 前端技术（Web 版本）
+### Frontend Technology (Web Version)
 - HTML5 + CSS3
-- 原生 JavaScript（无需框架）
-- 响应式设计
-- 实时 AJAX 交互
+- Native JavaScript (no framework needed)
+- Responsive design
+- Real-time AJAX interaction
 
-### 后端技术（Web 版本）
-- Flask Web 框架
+### Backend Technology (Web Version)
+- Flask Web framework
 - Python 3.6+
-- RESTful API 设计
+- RESTful API design
 
-### 桌面应用（GUI 版本）
-- Tkinter（Python 标准库）
-- 跨平台兼容性
+### Desktop Application (GUI Version)
+- Tkinter (Python standard library)
+- Cross-platform compatibility
 
-## 故障排除
+## Troubleshooting
 
-### Web 版本
-- **端口被占用**: 修改 app.py 中的 `port=5000` 为其他端口
-- **导入错误**: 确保虚拟环境已激活，Flask 已安装
-- **模板找不到**: 确保 templates 文件夹与 app.py 在同一目录
+### Web Version
+- **Port in use**: Modify `port=5000` in app.py to another port
+- **Import error**: Ensure virtual environment is activated, Flask is installed
+- **Template not found**: Ensure templates folder is in same directory as app.py
 
-### GUI 版本
-- **tkinter 找不到**: 在 Linux 上运行 `sudo apt install python3-tk`
-- **no display**: 在无 GUI 环境使用 Web 版本
+### GUI Version
+- **tkinter not found**: Run `sudo apt install python3-tk` on Linux
+- **No display**: Use web version in GUI-less environment
 
-## 扩展功能建议
+## Extension Feature Suggestions
 
-- [ ] 添加更多传统节日和纪念日
-- [ ] 支持农历年份干支（生肖）显示
-- [ ] 添加天气预报功能
-- [ ] 实现日程提醒功能
-- [ ] 导出日历数据（PDF、ICS 格式）
-- [ ] 深色/浅色主题切换
-- [ ] 多语言支持
-- [ ] 移动应用版本
+- [ ] Add more traditional holidays and commemorative days
+- [ ] Support Lunar zodiac (animal year) display
+- [ ] Add weather forecast feature
+- [ ] Implement schedule reminder functionality
+- [ ] Export calendar data (PDF, ICS format)
+- [ ] Dark/light theme toggle
+- [ ] Multi-language support
+- [ ] Mobile application version
 
-## 许可证
+## License
 
 MIT License
 
-## 开发时间
+## Development Time
 
-2026年2月16日
+February 16, 2026

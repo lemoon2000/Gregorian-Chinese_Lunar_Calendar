@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>公历农历日历</title>
+    <title>Gregorian and Lunar Calendar</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, '微软雅黑';
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -171,7 +171,7 @@
         }
         
         .day-box.today.holiday {
-            background: #ffed4e;  /* 今天+节假日: 更亮的黄色 */
+            background: #ffed4e;
             border-color: #ff8c00;
         }
         
@@ -275,42 +275,42 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📅 公历农历日历</h1>
-            <p>同时显示公历和农历，标记重要节假日</p>
+            <h1>📅 Gregorian and Lunar Calendar</h1>
+            <p>Display both Gregorian and Lunar calendar, mark important holidays</p>
         </div>
         
         <div class="controls">
-            <button onclick="prevMonth()">◀ 上月</button>
+            <button onclick="prevMonth()">◀ Previous Month</button>
             <div class="date-selector">
-                <label>年份:</label>
+                <label>Year:</label>
                 <input type="number" id="yearInput" min="1900" max="2100" value="">
-                <label>月份:</label>
+                <label>Month:</label>
                 <input type="number" id="monthInput" min="1" max="12" value="">
-                <button onclick="goToSelectedMonth()">跳转</button>
+                <button onclick="goToSelectedMonth()">Jump</button>
             </div>
-            <button onclick="goToToday()">今天</button>
-            <button onclick="nextMonth()">下月 ▶</button>
+            <button onclick="goToToday()">Today</button>
+            <button onclick="nextMonth()">Next Month ▶</button>
         </div>
         
         <div class="main-content">
             <div class="calendar-section">
                 <div class="month-year" id="monthYear"></div>
                 <div class="weekdays">
-                    <div class="weekday">一</div>
-                    <div class="weekday">二</div>
-                    <div class="weekday">三</div>
-                    <div class="weekday">四</div>
-                    <div class="weekday">五</div>
-                    <div class="weekday">六</div>
-                    <div class="weekday">日</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                    <div class="weekday">Sun</div>
                 </div>
                 <div class="days" id="calendar"></div>
             </div>
             
             <div class="info-section">
-                <h2>日期信息</h2>
+                <h2>Date Information</h2>
                 <div id="dateInfo" class="no-selection">
-                    点击日期查看详细信息
+                    Click on a date to view details
                 </div>
             </div>
         </div>
@@ -320,35 +320,35 @@
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth() + 1;
         
-        // 初始化
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('yearInput').value = currentYear;
             document.getElementById('monthInput').value = currentMonth;
             loadCalendar(currentYear, currentMonth);
         });
         
-        // 加载日历
+        // Load calendar
         function loadCalendar(year, month) {
             currentYear = year;
             currentMonth = month;
             
-            // 更新输入框
+            // Update input boxes
             document.getElementById('yearInput').value = year;
             document.getElementById('monthInput').value = month;
             
-            // 更新月份显示
-            const monthNames = ['', '一月', '二月', '三月', '四月', '五月', '六月', 
-                              '七月', '八月', '九月', '十月', '十一月', '十二月'];
-            document.getElementById('monthYear').textContent = `${year}年 ${monthNames[month]}`;
+            // Update month display
+            const monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('monthYear').textContent = `${monthNames[month]} ${year}`;
             
-            // 获取日历数据
+            // Get calendar data
             fetch(`/api/calendar/${year}/${month}`)
                 .then(response => response.json())
                 .then(data => renderCalendar(data))
                 .catch(error => console.error('Error:', error));
         }
         
-        // 渲染日历
+        // Render calendar
         function renderCalendar(data) {
             const calendarDiv = document.getElementById('calendar');
             calendarDiv.innerHTML = '';
@@ -386,7 +386,7 @@
             });
         }
         
-        // 显示日期信息
+        // Show date information
         function showDateInfo(year, month, day) {
             fetch(`/api/date/${year}/${month}/${day}`)
                 .then(response => response.json())
@@ -394,18 +394,18 @@
                     let html = '<div class="date-info">';
                     
                     html += '<div class="info-item">';
-                    html += '<div class="info-label">📅 公历</div>';
+                    html += '<div class="info-label">📅 Gregorian Calendar</div>';
                     html += `<div class="info-value">${data.gregorian}<br>${data.weekday}</div>`;
                     html += '</div>';
                     
                     html += '<div class="info-item">';
-                    html += '<div class="info-label">🐉 农历</div>';
+                    html += '<div class="info-label">🐉 Lunar Calendar</div>';
                     html += `<div class="info-value">${data.lunar_full}</div>`;
                     html += '</div>';
                     
                     if (data.greg_holiday || data.lunar_holiday) {
                         html += '<div class="info-item">';
-                        html += '<div class="info-label">🎉 节假日</div>';
+                        html += '<div class="info-label">🎉 Holidays</div>';
                         if (data.greg_holiday) {
                             html += `<span class="holiday-badge">${data.greg_holiday}</span>`;
                         }
@@ -421,7 +421,7 @@
                 .catch(error => console.error('Error:', error));
         }
         
-        // 导航函数
+        // Navigation functions
         function prevMonth() {
             if (currentMonth === 1) {
                 currentYear--;
@@ -458,7 +458,7 @@
             if (year >= 1900 && year <= 2100 && month >= 1 && month <= 12) {
                 loadCalendar(year, month);
             } else {
-                alert('请输入有效的年份 (1900-2100) 和月份 (1-12)');
+                alert('Please enter a valid year (1900-2100) and month (1-12)');
             }
         }
     </script>
