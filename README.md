@@ -1,4 +1,4 @@
-# 1stTest - Gregorian and Lunar Calendar Program
+# Gregorian and Lunar Calendar Program
 
 ## Project Description
 
